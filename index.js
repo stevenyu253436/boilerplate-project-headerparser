@@ -24,6 +24,15 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+// ✅ 新增 /api/whoami 端點
+app.get('/api/whoami', (req, res) => {
+  res.json({
+    ipaddress: req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    language: req.headers['accept-language'] || 'unknown',
+    software: req.headers['user-agent'] || 'unknown'
+  });
+});
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
